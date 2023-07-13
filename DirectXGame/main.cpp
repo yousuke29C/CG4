@@ -54,11 +54,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//FBXローダー初期化
 	FbxLoader::GetInstance()->Initialize(dxCommon->GetDevice());
 
-	//ポストエフェクト用テクスチャの読み込み
-	Sprite::LoadTexture(100, L"Resources/white1x1.png");
 	//ポストエフェクトの初期化
-	postEffect = new PostEffect();
-	postEffect->Initialize();
+	postEffect = new PostEffect(100, { 0,0 }, { 500.0f,500.0f }, { 1,1,1,1 }, { 0.0f,0.0f });
+	postEffect->Initialize(dxCommon->GetDevice());
 
 #pragma endregion
 
