@@ -20,6 +20,10 @@ protected:	//エイリアス
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 
+public:	//定数
+	//ボーンの最大数
+	static const int MAX_BONES = 32;
+
 public:	//サブクラス
 	//定数バッファ用データ構造体(座標変換行列用)
 	struct ConstBufferDataTransform
@@ -27,6 +31,12 @@ public:	//サブクラス
 		XMMATRIX viewproj;		//ビュープロジェクション行列
 		XMMATRIX world;			//ワールド行列
 		XMFLOAT3 cameraPos;		//カメラ座標(ワールド座標)
+	};
+
+	//定数バッファ用データ構造体(スキニング)
+	struct ConstBufferDataSkin
+	{
+		XMMATRIX bones[MAX_BONES];
 	};
 
 protected:
@@ -77,6 +87,11 @@ public:	//メンバ関数
 	/// </summary>
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
+	/// <summary>
+	/// アニメーション開始
+	/// </summary>
+	void PlayAnimation();
+
 	//setter
 	/// <summary>
 	/// モデルのセット
@@ -87,4 +102,17 @@ public:	//メンバ関数
 private:	//メンバ変数
 	//定数バッファ
 	ComPtr<ID3D12Resource> constBuffTransform;
+	//定数バッファ(スキン)
+	ComPtr<ID3D12Resource> constBuffSkin;
+
+	//1フレームの時間
+	FbxTime frameTime;
+	//アニメーション開始時間
+	FbxTime startTime;
+	//アニメーション終了時間
+	FbxTime endTime;
+	//現在時間(アニメーション)
+	FbxTime currentTime;
+	//アニメーション再生中
+	bool isPlay = false;
 };
