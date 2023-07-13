@@ -5,10 +5,11 @@
 
 Input * Input::GetInstance()
 {
-	static Input instance;
+	static Input instance; 
 
 	return &instance;
 }
+
 
 bool Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 {
@@ -36,6 +37,7 @@ bool Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 		assert(0);
 		return result;
 	}
+
 
 	// 入力データ形式のセット
 	result = devKeyboard->SetDataFormat(&c_dfDIKeyboard); // 標準形式
